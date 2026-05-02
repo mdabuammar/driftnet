@@ -1,0 +1,27 @@
+# Environments
+.venv*/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large Models and Datasets
+# Exclude the 4.2GB model (Upload this to Hugging Face instead)
+assets/best_encoder_150latent.pth
+
+# Sample data
+sample_main/
+
+# IDEs and OS
+.vscode/
+.idea/
+.DS_Store
+
+# Frontend build
+frontend/node_modules/
+frontend/dist/
+frontend/.npm/

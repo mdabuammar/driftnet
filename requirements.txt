@@ -1,0 +1,16 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-multipart==0.0.9
+
+numpy==1.26.4
+pandas==2.2.2
+# Must match version used when pkl artifacts (LabelEncoder, StandardScaler) were saved
+scikit-learn==1.6.1
+joblib==1.4.2
+
+tensorflow==2.17.0
+# CPU-only torch (avoids CUDA compatibility issues on Windows deployment)
+torch==2.4.1
+
+tqdm==4.66.5
+pydantic==2.8.2
