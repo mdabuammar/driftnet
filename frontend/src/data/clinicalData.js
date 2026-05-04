@@ -15,11 +15,7 @@ export const CLINICAL_OPTIONS = {
     'Cystic, Mucinous and Serous Neoplasms',
     'Ductal and Lobular Neoplasms',
     'Epithelial Neoplasms, NOS',
-    'Germ Cell Neoplasms',
-    'Mesothelial Neoplasms',
-    'Nevi and Melanomas',
     'Squamous Cell Neoplasms',
-    'Transitional Cell Papillomas and Carcinomas',
   ],
 
   'samples.tissue_type': ['Normal', 'Tumor'],
