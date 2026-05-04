@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 // Maps dot-notation internal keys to underscore-notation form field names
 const FIELD_MAP = {
