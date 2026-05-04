@@ -23,14 +23,6 @@ export default function Header() {
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Backend connected
           </span>
-          <a
-            href="http://localhost:8000/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-medium text-slate-500 hover:text-teal-600 transition-colors"
-          >
-            API Docs
-          </a>
         </div>
       </div>
     </header>
