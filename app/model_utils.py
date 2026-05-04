@@ -41,7 +41,33 @@ def verify_assets(asset_dir: str | Path) -> None:
     Raise FileNotFoundError listing all missing assets.
     Call this at startup before attempting to load any model.
     """
+    import shutil
     asset_dir = Path(asset_dir)
+
+    # ── Auto-download the 4.2GB model from Hugging Face if missing ──
+    large_model_name = "best_encoder_150latent.pth"
+    large_model_path = asset_dir / large_model_name
+    
+    if not large_model_path.exists():
+        logger.warning(
+            "Large model '%s' not found locally. Downloading from Hugging Face "
+            "(mdabuammar/driftnet-model). This may take several minutes...", 
+            large_model_name
+        )
+        try:
+            from huggingface_hub import hf_hub_download
+            cached_path = hf_hub_download(
+                repo_id="mdabuammar/driftnet-model", 
+                filename=large_model_name
+            )
+            # Copy from huggingface cache into our assets folder
+            shutil.copy2(cached_path, large_model_path)
+            logger.info("Successfully downloaded and placed '%s'", large_model_name)
+        except ImportError:
+            logger.error("huggingface_hub is not installed. Run: pip install huggingface_hub")
+        except Exception as e:
+            logger.error("Failed to download model from Hugging Face: %s", e)
+
     missing = [f for f in REQUIRED_ASSETS if not (asset_dir / f).exists()]
     if missing:
         raise FileNotFoundError(
