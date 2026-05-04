@@ -229,21 +229,9 @@ class DriftNetInference:
         tf.config.threading.set_intra_op_parallelism_threads(1)
         tf.config.threading.set_inter_op_parallelism_threads(1)
 
-        # ── Validate assets ──────────────────────────────────────
-        missing_assets = [
-            p for p in [
-                ENCODER_PATH, CONTRASTIVE_MODEL_PATH, DRIFTNET_MODEL_PATH,
-                CLINICAL_ENCODERS_PATH, CLINICAL_MAPPINGS_PATH,
-                CONTRASTIVE_SCALER_PATH, DRIFTNET_SCALER_PATH,
-                GLOBAL_MIN_PATH, GLOBAL_MAX_PATH,
-                PREPROCESS_META_PATH, STAGE_ENCODER_PATH,
-            ]
-            if not p.exists()
-        ]
-        if missing_assets:
-            raise FileNotFoundError(
-                f"Missing required assets: {[str(p) for p in missing_assets]}"
-            )
+        # ── Validate and Download assets ─────────────────────────
+        from app.model_utils import verify_assets
+        verify_assets(ASSET_DIR)
 
         # ── Load metadata ────────────────────────────────────────
         with open(PREPROCESS_META_PATH, "r", encoding="utf-8") as f:
