@@ -55,10 +55,13 @@ def verify_assets(asset_dir: str | Path) -> None:
             large_model_name
         )
         try:
+            import os
             from huggingface_hub import hf_hub_download
+            hf_token = os.environ.get("HF_TOKEN")
             cached_path = hf_hub_download(
                 repo_id="mdabuammar/driftnet-model", 
-                filename=large_model_name
+                filename=large_model_name,
+                token=hf_token
             )
             # Copy from huggingface cache into our assets folder
             shutil.copy2(cached_path, large_model_path)
