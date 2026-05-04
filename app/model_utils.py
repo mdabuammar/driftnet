@@ -66,10 +66,12 @@ def verify_assets(asset_dir: str | Path) -> None:
             # Copy from huggingface cache into our assets folder
             shutil.copy2(cached_path, large_model_path)
             logger.info("Successfully downloaded and placed '%s'", large_model_name)
-        except ImportError:
-            logger.error("huggingface_hub is not installed. Run: pip install huggingface_hub")
+        except ImportError as e:
+            print("ImportError: huggingface_hub is not installed.")
+            raise RuntimeError("huggingface_hub is not installed.") from e
         except Exception as e:
-            logger.error("Failed to download model from Hugging Face: %s", e)
+            print(f"Exception during hf_hub_download: {e}")
+            raise RuntimeError(f"Failed to download model from Hugging Face: {e}") from e
 
     missing = [f for f in REQUIRED_ASSETS if not (asset_dir / f).exists()]
     if missing:
